@@ -506,7 +506,7 @@ private fun AppCard(settings: AppSettings, onWhatsNew: () -> Unit) {
     Column(Modifier.padding(horizontal = 6.dp).fillMaxWidth().clip(PanelShape).background(PanelColor).padding(start = 12.dp, end = 10.dp, top = 10.dp, bottom = 12.dp)) {
         Row(Modifier.fillMaxWidth(), Arrangement.SpaceBetween, Alignment.CenterVertically) {
             Column(Modifier.widthIn(max = 140.dp).padding(end = 8.dp)) {
-                Text("AbsentMotion", color = Am.HomeInk, fontSize = 15.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                Text("BhavMotion", color = Am.HomeInk, fontSize = 15.sp, fontWeight = FontWeight.Bold, maxLines = 1)
                 if (version.isNotEmpty()) Text(stringResource(R.string.about_version, version), color = Am.HomeMid, fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
             Pill(stringResource(R.string.update_check_now), Am.Navy, Am.OnNavy, Modifier.weight(1f, fill = false), pad = 12.dp, busy = Updates.checking) { Updates.check(context, settings, manual = true) }

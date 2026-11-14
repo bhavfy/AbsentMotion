@@ -269,7 +269,7 @@ private fun TopBar(onMenu: () -> Unit, search: String?, page: Int, onSearch: (St
         Box(Modifier.align(Alignment.CenterStart).size(50.dp).clickable(onClick = onMenu), contentAlignment = Alignment.Center) {
             Icon(HomeIcons.Menu, stringResource(R.string.settings), Modifier.size(24.dp), tint = Am.Navy)
         }
-        if (search == null) Text("AbsentMotion", Modifier.align(Alignment.Center), color = Am.Navy, fontSize = 22.sp, fontWeight = FontWeight.Medium)
+        if (search == null) Text("BhavMotion", Modifier.align(Alignment.Center), color = Am.Navy, fontSize = 22.sp, fontWeight = FontWeight.Medium)
         else HomeSearchField(search, page == 1, onSearch, Modifier.align(Alignment.Center).padding(horizontal = 56.dp).fillMaxWidth())
         if (search == null) ChangelogButton(settings, Modifier.align(Alignment.CenterEnd).padding(end = 50.dp))
         if (page < 2) SearchButton(search, onSearch, Modifier.align(Alignment.CenterEnd))

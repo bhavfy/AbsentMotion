@@ -87,7 +87,7 @@ private fun AboutPage(onClose: () -> Unit, onLicences: () -> Unit, onWhatsNew: (
         TitleBar(stringResource(R.string.settings_about), HomeIcons.Close, stringResource(R.string.action_close), onClose)
         Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp)) {
             Spacer(Modifier.height(24.dp))
-            Text("AbsentMotion", color = Am.Navy, fontSize = 26.sp, fontWeight = FontWeight.Bold)
+            Text("BhavMotion", color = Am.Navy, fontSize = 26.sp, fontWeight = FontWeight.Bold)
             if (version.isNotEmpty()) Text(stringResource(if (Tier.compatible) R.string.about_version_compatible else R.string.about_version, version),
                 Modifier.padding(top = 2.dp), color = Am.HomeMid, fontSize = 14.sp)
             if (notes != null) Box(

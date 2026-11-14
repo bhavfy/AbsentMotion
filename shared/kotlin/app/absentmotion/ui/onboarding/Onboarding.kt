@@ -137,7 +137,7 @@ fun LookStep(settings: AppSettings, onContinue: () -> Unit) {
         Column(Modifier.fillMaxWidth().weight(1f).padding(horizontal = 16.dp, vertical = 12.dp), Arrangement.spacedBy(12.dp, Alignment.CenterVertically), Alignment.CenterHorizontally) {
             SystemLook(settings, Modifier.widthIn(max = 520.dp).fillMaxWidth())
             Row(Modifier.widthIn(max = 520.dp).fillMaxWidth().weight(1f, fill = false), Arrangement.spacedBy(12.dp), Alignment.CenterVertically) {
-                LookCard(settings, "AbsentMotion", app.absentmotion.ui.theme.Palette.AbsentMotion, R.string.theme_light, Modifier.weight(1f))
+                LookCard(settings, "BhavMotion", app.absentmotion.ui.theme.Palette.BhavMotion, R.string.theme_light, Modifier.weight(1f))
                 LookCard(settings, "Dark", app.absentmotion.ui.theme.Palette.Dark, R.string.theme_dark, Modifier.weight(1f))
             }
         }
