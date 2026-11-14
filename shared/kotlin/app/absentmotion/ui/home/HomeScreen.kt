@@ -405,7 +405,7 @@ private fun ProjectsPane(
 @Composable
 internal fun UploadCard(onUpload: () -> Unit) {
     Row(
-        Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(Am.Card).padding(16.dp),
+        Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(Am.Card).padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(HomeIcons.Upload, null, Modifier.size(48.dp), tint = Am.Navy)
@@ -413,7 +413,7 @@ internal fun UploadCard(onUpload: () -> Unit) {
         Text(stringResource(R.string.import_a_project_file), Modifier.weight(1f), color = Am.Navy, fontSize = 16.sp, fontWeight = FontWeight.Medium)
         Spacer(Modifier.width(16.dp))
         Box(
-            Modifier.height(40.dp).clip(RoundedCornerShape(14.dp)).background(Am.Navy).clickable(onClick = onUpload).padding(horizontal = 16.dp),
+            Modifier.height(48.dp).clip(RoundedCornerShape(16.dp)).background(Am.Navy).clickable(onClick = onUpload).padding(horizontal = 16.dp),
             contentAlignment = Alignment.Center,
         ) { Text(stringResource(R.string.choose_file), color = Am.OnNavy, fontSize = 15.sp, fontWeight = FontWeight.Medium) }
     }
@@ -495,7 +495,7 @@ private fun ListHeader(title: String?, byName: Boolean, onSort: (Boolean) -> Uni
                 Text(stringResource(if (byName) R.string.home_sort_by_name else R.string.home_sort_by_date), color = Am.Navy, fontSize = 15.sp)
                 Icon(HomeIcons.ChevronDown, null, Modifier.size(24.dp), tint = Am.Navy)
             }
-            RefMenu(open, { open = false }, Am.Card, RoundedCornerShape(14.dp), Modifier.width(211.dp)) {
+            RefMenu(open, { open = false }, Am.Card, RoundedCornerShape(16.dp), Modifier.width(211.dp)) {
                 SortRow(stringResource(R.string.home_sort_name), byName) { open = false; onSort(true) }
                 SortRow(stringResource(R.string.home_sort_date), !byName) { open = false; onSort(false) }
             }
@@ -536,7 +536,7 @@ private fun ProjectCard(
     Box(
         modifier.padding(bottom = 12.dp).fillMaxWidth().heightIn(min = 96.dp)
             .onGloballyPositioned { coords[0] = it }
-            .clip(RoundedCornerShape(12.dp)).background(Am.Card).clickable(onClick = onOpen),
+            .clip(RoundedCornerShape(16.dp)).background(Am.Card).clickable(onClick = onOpen),
     ) {
         Thumbnail(info, version, thumbs, Modifier.padding(8.dp))
         Column(Modifier.padding(start = 104.dp, top = 16.dp, end = 52.dp, bottom = 12.dp)) {
@@ -559,7 +559,7 @@ private fun ProjectCard(
             Icon(HomeIcons.More, stringResource(R.string.home_more), Modifier.size(24.dp), tint = Grey)
         }
         Box(Modifier.align(Alignment.BottomEnd).offset(y = 8.dp)) {
-            RefMenu(menuOpen, onDismissMenu, Am.Card, RoundedCornerShape(14.dp), Modifier.width(270.dp)) {
+            RefMenu(menuOpen, onDismissMenu, Am.Card, RoundedCornerShape(16.dp), Modifier.width(270.dp)) {
                 if (!info.damaged) {
                     MenuRow(stringResource(R.string.export), HomeIcons.Export, onExport, pick)
                     MenuRow(stringResource(if (info.isElement) R.string.home_duplicate_asset else R.string.home_duplicate), HomeIcons.Duplicate, onDuplicate, pick)

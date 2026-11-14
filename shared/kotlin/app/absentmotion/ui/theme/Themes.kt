@@ -53,8 +53,8 @@ object Themes {
     fun palette(context: Context, id: String, systemDark: Boolean = false): Palette = palette(context, resolve(id, systemDark))
 
     private fun palette(context: Context, id: String): Palette =
-        if (id == CUSTOM) custom(context)?.palette ?: Palette.AbsentMotion
-        else Palette.BuiltIn.firstOrNull { it.first == id }?.second ?: Palette.AbsentMotion
+        if (id == CUSTOM) custom(context)?.palette ?: Palette.BhavMotion
+        else Palette.BuiltIn.firstOrNull { it.first == id }?.second ?: Palette.BhavMotion
 
     fun import(context: Context, text: String): Theme {
         val theme = ThemeFile.parse(text)

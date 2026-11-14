@@ -198,7 +198,7 @@ data class Palette(
             "PressHome",
         )
 
-        fun from(colours: Map<String, Color>, base: Palette = AbsentMotion): Palette = Palette(
+        fun from(colours: Map<String, Color>, base: Palette = BhavMotion): Palette = Palette(
             TopBar = colours["TopBar"] ?: base.TopBar,
             PreviewBg = colours["PreviewBg"] ?: base.PreviewBg,
             TimelineBg = colours["TimelineBg"] ?: base.TimelineBg,
@@ -326,14 +326,78 @@ data class Palette(
             PressHome = Color(0x12000000),
         )
 
-        val Dark = AbsentMotion.copy(
+        val BhavMotion = Palette(
+            TopBar = Color(0xFF1B1D22),
+            PreviewBg = Color(0xFF101216),
+            TimelineBg = Color(0xFF1C1F25),
+            Panel = Color(0xFF23272E),
+            PanelInset = Color(0xFF282C34),
+            Button = Color(0xFF2E333D),
+            Field = Color(0xFF343A44),
+            FieldHi = Color(0xFF3E444F),
+            Chosen = Color(0xFF4A5160),
+            Well = Color(0xFF17191D),
+            Deepest = Color(0xFF0C0D10),
+            Line = Color(0xFF2A2E36),
+            MenuLine = Color(0xFF282C33),
+            KeyDigit = Color(0xFF454A55),
+            KeySymbol = Color(0xFF30333B),
+            Scrim = Color(0xF2121317),
+            PressEditor = Color(0x1CFFFFFF),
+            OnDark = Color(0xFFF5F6F8),
+            OnDarkDim = Color(0xFFA9AFBB),
+            Caption = Color(0xFFC2C8D2),
+            Faint = Color(0xFF878D99),
+            Inactive = Color(0xFF5C626E),
+            OnScrim = Color(0xFFFFFFFF),
+            Accent = Color(0xFF5B8DEF),
+            AccentLit = Color(0xFF8FB2FF),
+            AccentGlow = Color(0xFFB9D0FF),
+            AccentDeep = Color(0xFF1E3A6E),
+            OnAccent = Color(0xFFFFFFFF),
+            Cool = Color(0xFF6DB8FF),
+            CoolDeep = Color(0xFF24466F),
+            Gold = Color(0xFFFFD65C),
+            Warning = Color(0xFFFF8A94),
+            Bookmark = Color(0xFFF26AA8),
+            LayerBar = Color(0xFF5BB4A0),
+            LayerBarStripe = Color(0xFF52AB97),
+            TextBar = Color(0xFFE8B64C),
+            TextBarStripe = Color(0xFFDFAC40),
+            AudioBar = Color(0xFF6A58C8),
+            AudioWave = Color(0xFFD2CBF7),
+            OnBar = Color(0xFF121316),
+            OnAudioBar = Color(0xFFFFFFFF),
+            HomeBg = Color(0xFFF6F7F9),
+            Card = Color(0xFFFFFFFF),
+            SheetBg = Color(0xFFECEEF1),
+            Navy = Color(0xFF17191D),
+            HomeAccent = Color(0xFF2F6BFF),
+            OnNavy = Color(0xFFFFFFFF),
+            OnNavyAccent = Color(0xFFA8C4FF),
+            NavyHi = Color(0xFF2A2E36),
+            NavyLine = Color(0xFF262A31),
+            HomeInk = Color(0xFF111318),
+            HomeMid = Color(0xFF5A6270),
+            HomeDim = Color(0xFF6B7280),
+            HomeFaint = Color(0xFFB0B7C3),
+            HomeLine = Color(0xFFE2E5EA),
+            HomePanel = Color(0xFFEEF0F3),
+            HomeDrawer = Color(0xFFFFFFFF),
+            SwitchOff = Color(0xFFC2C8D2),
+            Thumb = Color(0xFFFFFFFF),
+            MenuScrim = Color(0xCCF6F7F9),
+            PressHome = Color(0x12000000),
+        )
+
+        val Dark = BhavMotion.copy(
             HomeBg = Color(0xFF111318),
             Card = Color(0xFF1C1F27),
             SheetBg = Color(0xFF181B22),
             Navy = Color(0xFFF2F3F5),
-            HomeAccent = Color(0xFFFF7A45),
+            HomeAccent = Color(0xFF6B9BFF),
             OnNavy = Color(0xFF111318),
-            OnNavyAccent = Color(0xFFB03F14),
+            OnNavyAccent = Color(0xFF8FB2FF),
             NavyHi = Color(0xFFDADDE3),
             NavyLine = Color(0xFFC9CDD4),
             HomeInk = Color(0xFFF2F3F5),
@@ -373,8 +437,8 @@ data class Palette(
             Faint = Color(0xFF727A8A),
             Inactive = Color(0xFFA9B0BC),
             OnScrim = Color(0xFFFFFFFF),
-            Accent = Color(0xFFB23609),
-            AccentLit = Color(0xFFD04A12),
+            Accent = Color(0xFF1F5FE0),
+            AccentLit = Color(0xFF4A7DE8),
             AccentGlow = Color(0xFF9A2E06),
             AccentDeep = Color(0xFFF5C6AD),
             OnAccent = Color(0xFFFFFFFF),
@@ -395,7 +459,7 @@ data class Palette(
             Card = Color(0xFFFFFFFF),
             SheetBg = Color(0xFFE8EAEE),
             Navy = Color(0xFF20242B),
-            HomeAccent = Color(0xFFB23609),
+            HomeAccent = Color(0xFF1F5FE0),
             OnNavy = Color(0xFFFFFFFF),
             OnNavyAccent = Color(0xFFFFA682),
             NavyHi = Color(0xFF363B44),
@@ -413,12 +477,12 @@ data class Palette(
             PressHome = Color(0x12000000),
         )
 
-        val BuiltIn: List<Pair<String, Palette>> = listOf("AbsentMotion" to AbsentMotion, "Dark" to Dark, "Daylight" to Daylight)
+        val BuiltIn: List<Pair<String, Palette>> = listOf("BhavMotion" to BhavMotion, "AbsentMotion" to AbsentMotion, "Dark" to Dark, "Daylight" to Daylight)
     }
 }
 
 object Am {
-    var palette: Palette by mutableStateOf(Palette.AbsentMotion)
+    var palette: Palette by mutableStateOf(Palette.BhavMotion)
 
     val editorIsLight: Boolean get() = palette.TopBar.luminance() > 0.5f
     val homeIsLight: Boolean get() = palette.HomeBg.luminance() > 0.5f
