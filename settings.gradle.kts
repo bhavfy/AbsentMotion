@@ -12,6 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "AbsentMotion"
+rootProject.name = "BhavMotion"
 include(":app")
 project(":app").projectDir = file("android")
