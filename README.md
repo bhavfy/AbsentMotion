@@ -2,11 +2,11 @@
   <img src="fastlane/metadata/android/en-US/images/icon.png" alt="AbsentMotion" width="128" height="128">
 </p>
 
-# AbsentMotion
+# BhavMotion
 
 <p align="center">
-  <a href="https://github.com/Comett1225/AbsentMotion/releases/latest"><img alt="Latest version" src="https://img.shields.io/github/v/release/Comett1225/AbsentMotion?label=latest%20version&style=for-the-badge&color=f07850"></a>
-  <a href="https://github.com/Comett1225/AbsentMotion/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/Comett1225/AbsentMotion/total?label=downloads&style=for-the-badge&color=2b2b33"></a>
+  <a href="https://github.com/bhavfy/AbsentMotion/releases/latest"><img alt="Latest version" src="https://img.shields.io/github/v/release/bhavfy/AbsentMotion?label=latest%20version&style=for-the-badge&color=f07850"></a>
+  <a href="https://github.com/bhavfy/AbsentMotion/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/bhavfy/AbsentMotion/total?label=downloads&style=for-the-badge&color=2b2b33"></a>
   <a href="LICENSE"><img alt="Licence: GPL-3.0" src="https://img.shields.io/badge/licence-GPL--3.0-2b2b33?style=for-the-badge"></a>
   <a href="#requirements"><img alt="Android 8 and newer" src="https://img.shields.io/badge/Android-8%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white"></a>
 </p>
@@ -17,7 +17,7 @@
   <a href="https://forms.gle/6bY8KBPMKc2iUypV6"><img alt="Report a bug" src="https://img.shields.io/badge/Report-a%20bug-2b2b33?style=for-the-badge"></a>
   <a href="https://forms.gle/5ZohVpB2eBPvzhu4A"><img alt="Suggest a feature" src="https://img.shields.io/badge/Suggest-a%20feature-2b2b33?style=for-the-badge"></a>
   <a href="https://absentmotion.com/effects/index.html"><img alt="All effects" src="https://img.shields.io/badge/All-effects-2b2b33?style=for-the-badge"></a>
-  <a href="https://github.com/Comett1225/AbsentMotion/releases"><img alt="All versions" src="https://img.shields.io/badge/All-versions-2b2b33?style=for-the-badge"></a>
+  <a href="https://github.com/bhavfy/AbsentMotion/releases"><img alt="All versions" src="https://img.shields.io/badge/All-versions-2b2b33?style=for-the-badge"></a>
 </p>
 <p align="center">
   <a href="https://discord.gg/xXEHj8Sx8X"><img alt="Join the Discord" src="https://img.shields.io/badge/Discord-join%20the%20server-5865F2?style=for-the-badge&logo=discord&logoColor=white"></a>
@@ -25,7 +25,7 @@
   <sub>Found a bug or have an idea? Come tell us on Discord.</sub>
 </p>
 
-AbsentMotion is a free, open-source alternative to CapCut and Alight Motion: a motion graphics, animation and video
+BhavMotion is a free, open-source alternative to CapCut and Alight Motion, based on AbsentMotion by Comett1225 (GPL-3.0): a motion graphics, animation and video
 editor for Android phones and Chromebooks, with desktop versions for Mac, Windows and Linux from 5.0. Everything runs on your device and it works without
 an internet connection. There is no subscription, no account and no advertising, and your projects never leave your device.
 

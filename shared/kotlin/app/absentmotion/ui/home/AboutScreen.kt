@@ -57,8 +57,8 @@ import androidx.compose.ui.res.stringResource
 import app.absentmotion.R
 import app.absentmotion.Tier
 
-internal const val HOME_PAGE ="https://github.com/Comett1225/AbsentMotion"
-internal const val WEBSITE = "https://absentmotion.com/"
+internal const val HOME_PAGE ="https://github.com/bhavfy/AbsentMotion"
+internal const val WEBSITE = "https://github.com/bhavfy/AbsentMotion"
 
 internal const val LICENCES_ASSET = "licenses.txt"
 
