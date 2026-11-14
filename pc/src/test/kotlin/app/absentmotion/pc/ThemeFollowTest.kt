@@ -24,14 +24,14 @@ class ThemeFollowTest {
 
     @org.junit.After fun restore() {
         System.setProperty("am.systemDark", "false")
-        Am.palette = Palette.AbsentMotion
+        Am.palette = Palette.BhavMotion
     }
 
     @Test fun aNewInstallStartsOnSystemDefaultAndFollowsTheDevice() = runComposeUiTest {
         val settings = fresh("theme-follow").settings
         assertEquals(Themes.SYSTEM, settings.theme)
         assertEquals(Themes.SYSTEM, settings.themes.first().first)
-        assertEquals(Palette.AbsentMotion, Am.palette)
+        assertEquals(Palette.BhavMotion, Am.palette)
         setContent { ThemeFadeHost { FollowSystemTheme(settings) } }
         System.setProperty("am.systemDark", "true")
         mainClock.advanceTimeBy(4000)
@@ -42,7 +42,7 @@ class ThemeFollowTest {
         mainClock.advanceTimeBy(4000)
         waitForIdle()
         mainClock.advanceTimeBy(1000)
-        assertEquals(Palette.AbsentMotion, Am.palette)
+        assertEquals(Palette.BhavMotion, Am.palette)
     }
 
     @Test fun theDeviceThemeWaitsForARunningExport() = runComposeUiTest {
@@ -54,7 +54,7 @@ class ThemeFollowTest {
             System.setProperty("am.systemDark", "true")
             mainClock.advanceTimeBy(10000)
             waitForIdle()
-            assertEquals(Palette.AbsentMotion, Am.palette)
+            assertEquals(Palette.BhavMotion, Am.palette)
         } finally {
             ExportRun.end(true)
         }
@@ -71,6 +71,6 @@ class ThemeFollowTest {
         System.setProperty("am.systemDark", "true")
         mainClock.advanceTimeBy(5000)
         waitForIdle()
-        assertEquals(Palette.AbsentMotion, Am.palette)
+        assertEquals(Palette.BhavMotion, Am.palette)
     }
 }

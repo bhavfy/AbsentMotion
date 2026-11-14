@@ -89,11 +89,12 @@ class ThemeTest {
     }
 
     @Test fun builtInPalettesAreListedAndDiffer() {
-        assertEquals(listOf("AbsentMotion", "Dark", "Daylight"), Palette.BuiltIn.map { it.first })
+        assertEquals(listOf("BhavMotion", "AbsentMotion", "Dark", "Daylight"), Palette.BuiltIn.map { it.first })
         assertTrue(Palette.Dark.HomeBg.luminance() < 0.5f)
         assertNotEquals(Palette.AbsentMotion, Palette.Daylight)
         assertTrue(Palette.Daylight.TopBar.luminance() > 0.5f)
         assertTrue(Palette.AbsentMotion.TopBar.luminance() < 0.5f)
+        assertTrue(Palette.BhavMotion.TopBar.luminance() < 0.5f)
     }
 
     private fun contrast(a: Color, b: Color): Float {
