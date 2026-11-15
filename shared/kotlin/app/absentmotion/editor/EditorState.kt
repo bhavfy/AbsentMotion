@@ -179,7 +179,11 @@ class EditorState(
 
     var selectedId: Long?
         get() = selection
-        set(value) { if (value != selection) Glide.interrupt(); selection = value }
+        set(value) {
+            if (value != selection) Glide.interrupt()
+            selection = value
+            if (value == null && MultiSelect.ids.isEmpty()) soloMode = 0
+        }
 
     var frame by mutableIntStateOf(0)
 

@@ -194,7 +194,6 @@ private fun Graph(state: EditorState, easing: Easing, overshoot: Boolean, modifi
                     var position = Offset.Zero
                     var damping = 1f
                     var handleOvershoot = false
-                    var lastCommit = 0L
                     var pending: Easing? = null
                     fun finishDrag() {
                         grabbed = -1
@@ -237,14 +236,7 @@ private fun Graph(state: EditorState, easing: Easing, overshoot: Boolean, modifi
                         }
                         val moved = hs[grabbed].moved(u, v)
                         dragEasing = moved
-                        val now = System.currentTimeMillis()
-                        if (now - lastCommit >= 50) {
-                            lastCommit = now
-                            pending = null
-                            state.setEasing(moved, HANDLE_KEY)
-                        } else {
-                            pending = moved
-                        }
+                        pending = moved
                     }
                 },
         ) {

@@ -262,14 +262,13 @@ void RenderPreview(SkCanvas* canvas, int width, int height, const Scene& scene, 
             drawScene(canvas, &fx);
             canvas->restore();
         }
-        {
+        if (havePlane) {
             SkPath dim;
             dim.addRect(SkRect::MakeIWH(width, height));
-            if (havePlane) dim.addPolygon({planeQuad, 4}, true);
-            else dim.addRect(SkRect::MakeXYWH(dx, dy, scene.width * scale, scene.height * scale));
+            dim.addPolygon({planeQuad, 4}, true);
             dim.setFillType(SkPathFillType::kEvenOdd);
             SkPaint dimPaint;
-            dimPaint.setColor(SkColorSetARGB(0x80, 0, 0, 0));
+            dimPaint.setColor(SkColorSetARGB(0xD9, 0, 0, 0));
             canvas->drawPath(dim, dimPaint);
         }
         if (view.gridSpacing > 0) DrawGrid(canvas, canvas->getBaseLayerSize(), scene, scale, dx, dy, view.gridSpacing);
