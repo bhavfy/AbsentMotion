@@ -228,7 +228,7 @@ class EditorState(
 
     var soloMode by mutableIntStateOf(0)
 
-    private var cameraView by mutableStateOf(false)
+    private var cameraView by mutableStateOf(initial.layers.any { it.kind == "camera" && !it.hidden })
     private var viewBeforeCamera: Pair<Float, Offset>? = null
 
     var cameraMode: Boolean

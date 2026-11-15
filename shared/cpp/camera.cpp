@@ -74,7 +74,7 @@ Seen Look(const View& v, const Placement& p) {
         point = v.tilt.map(rotated.x(), rotated.y(), point.z, 0);
     }
     s.depth = point.z;
-    s.visible = s.depth >= kNearest;
+    s.visible = s.depth > 0;
     const float k = v.focal / (v.orthographic ? std::max(-v.eyeZ, kNearest) : std::max(s.depth, kNearest));
     s.location = v.middle + (v.tilt == SkM44() ? SkMatrix::RotateDeg(-v.rotation).mapVector(SkVector{point.x, point.y} * k) : SkVector{point.x * k, point.y * k});
     s.scale = {p.scale.fX * k, p.scale.fY * k};

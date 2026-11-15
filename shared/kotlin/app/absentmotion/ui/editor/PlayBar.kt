@@ -5,14 +5,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
@@ -48,7 +45,12 @@ fun PlayBar(state: EditorState, modifier: Modifier = Modifier, transportOnly: Bo
                 if (state.previewPanelOpen) ChromeIcons.PreviewModeOpen else ChromeIcons.PreviewMode, stringResource(R.string.play_preview_mode), Modifier.fillMaxSize(),
                 iconSize = DpSize(24.dp, 36.dp),
             ) { state.previewPanelOpen = !state.previewPanelOpen }
-            if (state.cameraMode && !state.previewPanelOpen) Icon(ChromeIcons.PreviewCamera, null, Modifier.align(Alignment.Center).size(20.dp, 37.dp), tint = Am.Accent)
+        }
+        if (!transportOnly && (state.cameraMode || state.scene.layers.any { it.kind == "camera" })) {
+            BarButton(
+                ChromeIcons.PreviewCamera, stringResource(R.string.camerapanel_tab_camera_view), cell,
+                iconSize = DpSize(20.dp, 37.dp), tint = if (state.cameraMode) Am.Accent else Am.OnDark,
+            ) { state.cameraMode = !state.cameraMode }
         }
         Presence(menuOpen) { CopyPasteMenu(state) { menuOpen = false } }
     }

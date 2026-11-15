@@ -39,6 +39,7 @@ internal fun BarButton(
     modifier: Modifier,
     enabled: Boolean = true,
     iconSize: DpSize = DpSize(24.dp, 24.dp),
+    tint: Color = Am.OnDark,
     onLongClick: (() -> Unit)? = null,
     hint: String? = null,
     onClick: () -> Unit = {},
@@ -50,8 +51,8 @@ internal fun BarButton(
         contentAlignment = Alignment.Center,
     ) {
         if (app.absentmotion.platform.PlatformFeatures.desktop && (hint ?: description).isNotEmpty()) {
-            app.absentmotion.platform.Hint(hint ?: description) { Box(Modifier.fillMaxSize(), Alignment.Center) { Icon(icon, description, Modifier.size(iconSize), tint = Am.OnDark) } }
-        } else Icon(icon, description, Modifier.size(iconSize), tint = Am.OnDark)
+            app.absentmotion.platform.Hint(hint ?: description) { Box(Modifier.fillMaxSize(), Alignment.Center) { Icon(icon, description, Modifier.size(iconSize), tint = tint) } }
+        } else Icon(icon, description, Modifier.size(iconSize), tint = tint)
     }
 }
 

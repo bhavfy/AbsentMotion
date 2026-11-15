@@ -117,6 +117,7 @@ fun EditorState.addCamera() {
             XmlNode("fog", mapOf("enabled" to "false"), listOf(XmlNode("color", mapOf("value" to "#ffffffff")), value("near-z", zoom), value("far-z", zoom * 2))),
         )),
     )
+    cameraMode = true
 }
 
 fun EditorState.addLight() {
