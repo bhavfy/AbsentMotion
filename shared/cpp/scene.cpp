@@ -794,10 +794,13 @@ static void ClipSceneToPixels(SkCanvas* canvas, float width, float height) {
 }
 
 void DrawScene(SkCanvas* canvas, const Scene& scene, double timeMs, const MediaPictures& pictures,
-               const LayerEffects* effects) {
+               const LayerEffects* effects, bool clip) {
     canvas->save();
     ClipSceneToPixels(canvas, scene.width, scene.height);
     canvas->drawColor(scene.bgColor);
+    canvas->restore();
+    canvas->save();
+    if (clip) ClipSceneToPixels(canvas, scene.width, scene.height);
     SetLayerEffects(effects, &scene);
     DrawLayerList(canvas, scene, scene.layers, timeMs, pictures);
     SetLayerEffects(nullptr, nullptr);

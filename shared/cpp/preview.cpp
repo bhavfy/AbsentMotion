@@ -193,24 +193,31 @@ void RenderPreview(SkCanvas* canvas, int width, int height, const Scene& scene, 
 
         canvas->clear(background);
         const float px = view.refPx > 0 ? view.refPx : width / 1080.0f;
-        const bool world = ActiveCamera(scene.layers, timeMs) != nullptr;
+        const Layer* activeCam = ActiveCamera(scene.layers, timeMs);
+        const bool world = activeCam != nullptr;
+        const Layer* cam = world && camera ? activeCam : nullptr;
+        SkPoint planeQuad[4];
+        bool havePlane = false;
+        if (cam != nullptr) {
+            havePlane = CameraPlaneQuad(scene.layers, *cam, scene.width, scene.height, timeMs, planeQuad);
+            if (havePlane) {
+                const SkMatrix toScreen = SkMatrix::Translate(dx, dy).preScale(scale, scale);
+                toScreen.mapPoints(planeQuad);
+            }
+        }
         auto drawScene = [&](SkCanvas* target, const LayerEffects* fx) {
             if (world) DrawWorld(target, *shown, timeMs, pictures, fx);
-            else DrawScene(target, *shown, timeMs, pictures, fx);
+            else DrawScene(target, *shown, timeMs, pictures, fx, false);
         };
         const int divisor = std::max(view.pixelDivisor, 1);
         const int bufferW = (int)lroundf(width / scale / divisor), bufferH = (int)lroundf(height / scale / divisor);
         const bool pixelArt = view.pixels && bufferW > 0 && bufferH > 0 && (bufferW < width || bufferH < height);
         if ((scene.bgColor >> 24) != 0xff) {
             SkRect area = SkRect::MakeXYWH(dx, dy, scene.width * scale, scene.height * scale);
-            if (world && camera) {
-                const Layer* cam = ActiveCamera(scene.layers, timeMs);
-                SkPoint quad[4];
-                if (cam != nullptr && CameraPlaneQuad(scene.layers, *cam, scene.width, scene.height, timeMs, quad)) {
-                    const SkMatrix toScreen = SkMatrix::Translate(dx, dy).preScale(scale, scale);
-                    toScreen.mapPoints(quad);
-                    area.setBounds({quad, 4});
-                }
+            if (havePlane) {
+                SkRect quadArea;
+                quadArea.setBounds({planeQuad, 4});
+                if (quadArea.isFinite() && !quadArea.isEmpty()) area = quadArea;
             }
             SkRect covered = area;
             if (pixelArt && !world) {
@@ -254,6 +261,16 @@ void RenderPreview(SkCanvas* canvas, int width, int height, const Scene& scene, 
             canvas->scale(scale, scale);
             drawScene(canvas, &fx);
             canvas->restore();
+        }
+        {
+            SkPath dim;
+            dim.addRect(SkRect::MakeIWH(width, height));
+            if (havePlane) dim.addPolygon({planeQuad, 4}, true);
+            else dim.addRect(SkRect::MakeXYWH(dx, dy, scene.width * scale, scene.height * scale));
+            dim.setFillType(SkPathFillType::kEvenOdd);
+            SkPaint dimPaint;
+            dimPaint.setColor(SkColorSetARGB(0x80, 0, 0, 0));
+            canvas->drawPath(dim, dimPaint);
         }
         if (view.gridSpacing > 0) DrawGrid(canvas, canvas->getBaseLayerSize(), scene, scale, dx, dy, view.gridSpacing);
         DrawCameraFrames(canvas, scene, timeMs, camera, selectedId, SkMatrix::Translate(dx, dy).preScale(scale, scale), px);

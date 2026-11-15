@@ -360,7 +360,7 @@ struct LayerEffects {
     std::function<bool(const Layer&, double, SkPoint*)> turn;
 };
 void DrawScene(SkCanvas* canvas, const Scene& scene, double timeMs, const MediaPictures& pictures,
-               const LayerEffects* effects = nullptr);
+               const LayerEffects* effects = nullptr, bool clip = true);
 void SetLayerEffects(const LayerEffects* effects, const Scene* scene, bool world = false);
 int ProjectFps();
 const std::vector<Layer>* EffectSiblings();
