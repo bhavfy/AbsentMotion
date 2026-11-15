@@ -261,7 +261,7 @@ bool CameraPlaneQuad(const std::vector<Layer>& layers, const Layer& camera, int 
     for (int i = 0; i < 4; i++) {
         Placement p{};
         p.location = plane[i];
-        p.scale = {1, 1};
+        p.scale = SkPoint{1, 1};
         corners[i] = Look(v, p).location;
     }
     return true;

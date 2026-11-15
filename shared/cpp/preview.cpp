@@ -209,7 +209,7 @@ void RenderPreview(SkCanvas* canvas, int width, int height, const Scene& scene, 
                 if (cam != nullptr && CameraPlaneQuad(scene.layers, *cam, scene.width, scene.height, timeMs, quad)) {
                     const SkMatrix toScreen = SkMatrix::Translate(dx, dy).preScale(scale, scale);
                     toScreen.mapPoints(quad);
-                    area.setBounds(quad, 4);
+                    area.setBounds({quad, 4});
                 }
             }
             SkRect covered = area;
