@@ -212,7 +212,7 @@ Placement OwnAt(const Layer& l, double timeMs) {
     Placement p{{l.location.get(0, t, 0), l.location.get(1, t, 0)},
                 {l.pivot.get(0, t, 0), l.pivot.get(1, t, 0)},
                 {l.scale.get(0, t, 1), l.scale.get(1, t, 1)},
-                l.rotation.get(0, t, 0),
+                l.rotation.getAngle(0, t, 0),
                 l.location.get(2, t, 0)};
     const float tx = l.tilt.get(0, t, 0), ty = l.tilt.get(1, t, 0);
     if (tx != 0 || ty != 0) p.tilt = SkM44::Rotate({0, 1, 0}, -ty * kRadians) * SkM44::Rotate({1, 0, 0}, -tx * kRadians);

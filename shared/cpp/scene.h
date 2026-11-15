@@ -54,6 +54,7 @@ struct Anim {
 
     bool empty() const { return value.empty() && keys.empty() && links.empty(); }
     float get(int i, float t, float fallback) const;
+    float getAngle(int i, float t, float fallback) const;
     bool steady(float from, float to) const;
 };
 

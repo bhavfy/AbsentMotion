@@ -147,6 +147,38 @@ const Anim* LinkAnim(const Layer& l, const ValueLink& link) {
 }
 }
 
+namespace {
+// Rotation keyframes take the shortest way around: 0 -> 350 spins -10, not +350,
+// so a video no longer whirls around at the start of playback. A full turn
+// (|delta| >= 360) is kept as-is, so an intentional spin still spins.
+float wrapDelta(float d) {
+    if (std::fabs(d) >= 360.0f - 1e-3f) return d;
+    float w = std::fmod(d + 540.0f, 360.0f) - 180.0f;
+    return w;
+}
+}  // namespace
+
+float Anim::getAngle(int i, float t, float fallback) const {
+    float linked;
+    if (!links.empty() && PlacementLink(*this) && LinkedValue(*this, i, t, &linked)) return linked;
+    auto at = [&](const std::vector<float>& v) { return i < (int)v.size() ? v[i] : fallback; };
+    if (keys.empty()) return value.empty() ? fallback : at(value);
+    if (!std::isfinite(t)) return at(keys.front().v);
+    if (hasLead && t < keys.front().t) {
+        if (t <= lead.t) return at(lead.v);
+        const float u = (t - lead.t) / (keys.front().t - lead.t);
+        return at(lead.v) + wrapDelta(at(keys.front().v) - at(lead.v)) * u;
+    }
+    if (t <= keys.front().t) return at(keys.front().v);
+    if (t >= keys.back().t) return at(keys.back().v);
+    auto next = std::upper_bound(keys.begin(), keys.end(), t,
+                                 [](float time, const Keyframe& k) { return time < k.t; });
+    const Keyframe& b = *next;
+    const Keyframe& a = *(next - 1);
+    const float u = Ease(b.easing, b.t > a.t ? (t - a.t) / (b.t - a.t) : 0.0f);
+    return at(a.v) + wrapDelta(at(b.v) - at(a.v)) * u;
+}
+
 float Anim::get(int i, float t, float fallback) const {
     float linked;
     if (!links.empty() && PlacementLink(*this) && LinkedValue(*this, i, t, &linked)) return linked;
@@ -714,7 +746,7 @@ SkPath OutlineAt(const Layer& layer, float t) {
 
 SkMatrix LayerMatrix(const Layer& l, float t) {
     SkMatrix m = SkMatrix::Translate(l.location.get(0, t, 0), l.location.get(1, t, 0));
-    m.preRotate(l.rotation.get(0, t, 0));
+    m.preRotate(l.rotation.getAngle(0, t, 0));
     m.preSkew(tanf(l.skew.get(0, t, 0)), tanf(l.skew.get(1, t, 0)));
     m.preScale(l.scale.get(0, t, 1), l.scale.get(1, t, 1));
     m.preTranslate(-l.pivot.get(0, t, 0), -l.pivot.get(1, t, 0));

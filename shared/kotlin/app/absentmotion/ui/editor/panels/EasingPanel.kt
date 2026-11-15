@@ -173,8 +173,14 @@ private fun geoOf(size: IntSize, easing: Easing, overshoot: Boolean): Geo? {
 
 @Composable
 private fun Graph(state: EditorState, easing: Easing, overshoot: Boolean, modifier: Modifier) {
-    val samples = remember(easing) { NativeEngine.ease(easing.toString(), FloatArray(SAMPLES) { it / (SAMPLES - 1f) }) }
-    val handles = easing.handles()
+    // Live drag state: the handle and curve follow the finger instantly from here.
+    // The expensive scene edit (full scene copy + preview re-render) is only committed
+    // at most every 50ms during the drag, plus once at the end, so the graph no longer
+    // lags behind the finger.
+    var dragEasing by remember { mutableStateOf<Easing?>(null) }
+    val displayEasing = dragEasing ?: easing
+    val samples = remember(displayEasing) { NativeEngine.ease(displayEasing.toString(), FloatArray(SAMPLES) { it / (SAMPLES - 1f) }) }
+    val handles = displayEasing.handles()
     val progress = state.keyTarget?.ref?.let { state.keyLayer?.stretchProgress(it) }
     var size by remember { mutableStateOf(IntSize.Zero) }
     val geo = geoOf(size, easing, overshoot)
@@ -192,6 +198,15 @@ private fun Graph(state: EditorState, easing: Easing, overshoot: Boolean, modifi
                     var position = Offset.Zero
                     var damping = 1f
                     var handleOvershoot = false
+                    var lastCommit = 0L
+                    var pending: Easing? = null
+                    fun finishDrag() {
+                        grabbed = -1
+                        pending?.let { state.setEasing(it, HANDLE_KEY) }
+                        pending = null
+                        dragEasing = null
+                        state.endGesture()
+                    }
                     detectDragGestures(
                         onDragStart = { at ->
                             val g = liveGeo
@@ -212,8 +227,8 @@ private fun Graph(state: EditorState, easing: Easing, overshoot: Boolean, modifi
                                 }
                             }
                         },
-                        onDragEnd = { grabbed = -1; state.endGesture() },
-                        onDragCancel = { grabbed = -1; state.endGesture() },
+                        onDragEnd = { finishDrag() },
+                        onDragCancel = { finishDrag() },
                     ) { change, _ ->
                         val g = liveGeo ?: return@detectDragGestures
                         val hs = liveEasing.handles()
@@ -224,7 +239,16 @@ private fun Graph(state: EditorState, easing: Easing, overshoot: Boolean, modifi
                         val v = (position.y - delta.y / (g.s * g.k)).let {
                             if (handleOvershoot) it.coerceIn(g.vMin, g.vMax) else it.coerceIn(0f, 1f)
                         }
-                        state.setEasing(hs[grabbed].moved(u, v), HANDLE_KEY)
+                        val moved = hs[grabbed].moved(u, v)
+                        dragEasing = moved
+                        val now = System.currentTimeMillis()
+                        if (now - lastCommit >= 50) {
+                            lastCommit = now
+                            pending = null
+                            state.setEasing(moved, HANDLE_KEY)
+                        } else {
+                            pending = moved
+                        }
                     }
                 },
         ) {
