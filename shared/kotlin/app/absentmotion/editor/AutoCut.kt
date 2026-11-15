@@ -14,11 +14,6 @@ import app.absentmotion.model.trimmedTo
 import app.absentmotion.platform.Context
 import kotlinx.coroutines.delay
 
-// Auto Cut: finds the silent parts of a video (or audio) layer, deletes them and
-// joins what is left, so a talking-head video plays without the pauses.
-// Everything runs on the phone: the loudness data is the same audio-peak data the
-// timeline already decodes for waveforms, so there is no server and no cost.
-
 private const val SILENCE_THRESHOLD = 0.08f
 private const val MIN_SILENCE_MS = 500
 private const val EDGE_PAD_MS = 120
@@ -46,14 +41,12 @@ internal fun findSilentRanges(peaks: AudioPeaks, layer: Layer): List<IntRange> {
     }
     runStart?.let { raw += it..end }
     if (raw.isEmpty()) return emptyList()
-    // Bridge tiny blips of sound inside a silence so a breath does not keep a sliver.
     val bridged = mutableListOf<IntRange>()
     for (range in raw) {
         val last = bridged.lastOrNull()
         if (last != null && range.first - last.last <= BRIDGE_MS) bridged[bridged.lastIndex] = last.first..range.last
         else bridged += range
     }
-    // Drop short silences, keep a little breathing room at the edges so words are not clipped.
     return bridged.mapNotNull { range ->
         val a = (range.first + EDGE_PAD_MS).coerceAtMost(range.last)
         val b = (range.last - EDGE_PAD_MS).coerceAtLeast(a)

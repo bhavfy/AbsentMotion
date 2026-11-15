@@ -173,10 +173,6 @@ private fun geoOf(size: IntSize, easing: Easing, overshoot: Boolean): Geo? {
 
 @Composable
 private fun Graph(state: EditorState, easing: Easing, overshoot: Boolean, modifier: Modifier) {
-    // Live drag state: the handle and curve follow the finger instantly from here.
-    // The expensive scene edit (full scene copy + preview re-render) is only committed
-    // at most every 50ms during the drag, plus once at the end, so the graph no longer
-    // lags behind the finger.
     var dragEasing by remember { mutableStateOf<Easing?>(null) }
     val displayEasing = dragEasing ?: easing
     val samples = remember(displayEasing) { NativeEngine.ease(displayEasing.toString(), FloatArray(SAMPLES) { it / (SAMPLES - 1f) }) }

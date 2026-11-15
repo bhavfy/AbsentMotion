@@ -148,15 +148,12 @@ const Anim* LinkAnim(const Layer& l, const ValueLink& link) {
 }
 
 namespace {
-// Rotation keyframes take the shortest way around: 0 -> 350 spins -10, not +350,
-// so a video no longer whirls around at the start of playback. A full turn
-// (|delta| >= 360) is kept as-is, so an intentional spin still spins.
 float wrapDelta(float d) {
     if (std::fabs(d) >= 360.0f - 1e-3f) return d;
     float w = std::fmod(d + 540.0f, 360.0f) - 180.0f;
     return w;
 }
-}  // namespace
+}
 
 float Anim::getAngle(int i, float t, float fallback) const {
     float linked;
