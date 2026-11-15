@@ -253,6 +253,20 @@ bool CameraFrame(const std::vector<Layer>& layers, const Layer& camera, int widt
     return true;
 }
 
+bool CameraPlaneQuad(const std::vector<Layer>& layers, const Layer& camera, int width, int height, double timeMs, SkPoint corners[4]) {
+    if (width <= 0 || height <= 0) return false;
+    const View v = LayerView(layers, camera, width, height, timeMs);
+    if (!(-v.eyeZ > 0)) return false;
+    const SkPoint plane[4] = {{0, 0}, {(float)width, 0}, {(float)width, (float)height}, {0, (float)height}};
+    for (int i = 0; i < 4; i++) {
+        Placement p{};
+        p.location = plane[i];
+        p.scale = {1, 1};
+        corners[i] = Look(v, p).location;
+    }
+    return true;
+}
+
 bool SeenPlacement(const Layer& l, double timeMs, Placement* out) {
     const Sight& s = l.sight;
     if (!s.layers) return false;

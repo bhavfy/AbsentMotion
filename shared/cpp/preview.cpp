@@ -202,7 +202,16 @@ void RenderPreview(SkCanvas* canvas, int width, int height, const Scene& scene, 
         const int bufferW = (int)lroundf(width / scale / divisor), bufferH = (int)lroundf(height / scale / divisor);
         const bool pixelArt = view.pixels && bufferW > 0 && bufferH > 0 && (bufferW < width || bufferH < height);
         if ((scene.bgColor >> 24) != 0xff) {
-            const SkRect area = world ? SkRect::MakeIWH(width, height) : SkRect::MakeXYWH(dx, dy, scene.width * scale, scene.height * scale);
+            SkRect area = SkRect::MakeXYWH(dx, dy, scene.width * scale, scene.height * scale);
+            if (world && camera) {
+                const Layer* cam = ActiveCamera(scene.layers, timeMs);
+                SkPoint quad[4];
+                if (cam != nullptr && CameraPlaneQuad(scene.layers, *cam, scene.width, scene.height, timeMs, quad)) {
+                    const SkMatrix toScreen = SkMatrix::Translate(dx, dy).preScale(scale, scale);
+                    toScreen.mapPoints(quad);
+                    area.setBounds(quad, 4);
+                }
+            }
             SkRect covered = area;
             if (pixelArt && !world) {
                 const float kx = (float)bufferW / width, ky = (float)bufferH / height;
