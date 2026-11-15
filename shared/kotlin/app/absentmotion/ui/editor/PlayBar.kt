@@ -46,12 +46,6 @@ fun PlayBar(state: EditorState, modifier: Modifier = Modifier, transportOnly: Bo
                 iconSize = DpSize(24.dp, 36.dp),
             ) { state.previewPanelOpen = !state.previewPanelOpen }
         }
-        if (!transportOnly && (state.cameraMode || state.scene.layers.any { it.kind == "camera" })) {
-            BarButton(
-                ChromeIcons.PreviewCamera, stringResource(R.string.camerapanel_tab_camera_view), cell,
-                iconSize = DpSize(20.dp, 37.dp), tint = if (state.cameraMode) Am.Accent else Am.OnDark,
-            ) { state.cameraMode = !state.cameraMode }
-        }
         Presence(menuOpen) { CopyPasteMenu(state) { menuOpen = false } }
     }
 }
