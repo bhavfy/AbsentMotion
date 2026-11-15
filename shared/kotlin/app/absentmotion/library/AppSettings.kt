@@ -295,7 +295,7 @@ enum class PreviewQuality(val divisor: Int, @StringRes val label: Int) {
     Full(1, R.string.settings_preview_full), Half(2, R.string.settings_preview_half), Quarter(4, R.string.settings_preview_quarter);
 
     companion object {
-        fun of(stored: String?, draft: Boolean): PreviewQuality = entries.firstOrNull { it.name == stored } ?: if (draft) Half else Full
+        fun of(stored: String?, draft: Boolean): PreviewQuality = entries.firstOrNull { it.name == stored } ?: Half
     }
 }
 

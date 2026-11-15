@@ -45,10 +45,10 @@ private const val MAX_BUDGET = 256 * MIB
 private const val MAX_DISK_BUDGET = 1024 * MIB
 private const val DISK_RESERVE = 1024 * MIB
 private const val CACHE_PREFIX = "preview-cache-"
-private const val MAX_SIDE = 1920
+private const val MAX_SIDE = 1280
 private const val ESTIMATE_PER_MILLE = 150L
 private const val QUALITY = 85
-private const val AHEAD = 2
+private const val AHEAD = 4
 private const val POOL = AHEAD + 3
 private const val TAG = "AMCache"
 

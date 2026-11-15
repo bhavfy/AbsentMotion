@@ -4,9 +4,9 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class PreviewQualityTest {
-    @Test fun theOldDraftSwitchBecomesHalf() {
+    @Test fun noSavedChoiceDefaultsToHalf() {
         assertEquals(PreviewQuality.Half, PreviewQuality.of(null, draft = true))
-        assertEquals(PreviewQuality.Full, PreviewQuality.of(null, draft = false))
+        assertEquals(PreviewQuality.Half, PreviewQuality.of(null, draft = false))
     }
 
     @Test fun aSavedChoiceWinsOverTheOldSwitch() {
@@ -15,9 +15,9 @@ class PreviewQualityTest {
         assertEquals(PreviewQuality.Half, PreviewQuality.of("Half", draft = false))
     }
 
-    @Test fun anUnknownValueFallsBackToTheOldSwitch() {
+    @Test fun anUnknownValueFallsBackToHalf() {
         assertEquals(PreviewQuality.Half, PreviewQuality.of("Eighth", draft = true))
-        assertEquals(PreviewQuality.Full, PreviewQuality.of("", draft = false))
+        assertEquals(PreviewQuality.Half, PreviewQuality.of("", draft = false))
     }
 
     @Test fun eachChoiceDividesThePreviewResolution() {
