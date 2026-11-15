@@ -3,6 +3,7 @@ package app.absentmotion.ui.editor
 import app.absentmotion.ui.editor.panels.buttonLabel
 import app.absentmotion.platform.Toast
 import app.absentmotion.editor.deselectLayer
+import app.absentmotion.editor.autoCutNote
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -186,6 +187,7 @@ internal fun LayerMenu(state: EditorState, onDismiss: () -> Unit) {
     val position = remember { RightEdge { it.bottom } }
     var mediaInfo by remember { mutableStateOf(false) }
     var marking by remember { mutableStateOf(false) }
+    var cutting by remember { mutableStateOf(false) }
     val context = LocalContext.current
     val media = state.selected?.mediaFill
     val video = media?.takeIf { it.video }
@@ -231,6 +233,15 @@ internal fun LayerMenu(state: EditorState, onDismiss: () -> Unit) {
             if (!MultiSelect.active) MenuRow(stringResource(R.string.draw_title_track_motion)) {
                 onDismiss()
                 state.startTracking()
+            }
+        }
+        if ((video != null || state.selected?.kind == "audio") && !MultiSelect.active) MenuRow(stringResource(R.string.auto_cut), enabled = !cutting, busy = cutting) {
+            cutting = true
+            scope.launch {
+                val note = state.autoCutNote(context)
+                Toast.makeText(context, note, Toast.LENGTH_SHORT).show()
+                cutting = false
+                onDismiss()
             }
         }
         if (state.selected?.soundUri != null && !MultiSelect.active) MenuRow(stringResource(R.string.menu_mark_beats), enabled = !marking, busy = marking) {

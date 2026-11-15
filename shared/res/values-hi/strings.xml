@@ -1016,6 +1016,12 @@
     <string name="menu_create_clipping_mask">क्लिपिंग मास्क बनाएं</string>
     <string name="menu_convert_to_outline">आउटलाइन में बदलें</string>
     <string name="menu_extract_audio">ऑडियो निकालें</string>
+    <string name="auto_cut">ऑटो कट</string>
+    <string name="auto_cut_select_video">पहले ऑडियो वाला वीडियो चुनें</string>
+    <string name="auto_cut_unsupported">ऑटो कट अभी रीमैप किए क्लिप पर नहीं चलता</string>
+    <string name="auto_cut_no_silence">कोई साइलेंस नहीं मिला</string>
+    <string name="auto_cut_no_audio">ऑडियो पढ़ा नहीं जा सका</string>
+    <string name="auto_cut_removed">%1$s साइलेंट हिस्से हटाए (%2$s)</string>
     <string name="menu_mark_beats">बीट्स मार्क करें</string>
     <string name="menu_no_new_beats">कोई नई बीट नहीं मिली</string>
     <string name="menu_beats_not_found">बीट्स नहीं मिलीं</string>
