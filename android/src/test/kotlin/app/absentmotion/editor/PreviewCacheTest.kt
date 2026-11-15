@@ -24,9 +24,9 @@ class PreviewCacheTest {
         assertEquals(540 to 960, cacheFrameSize(1080, 1920, 0.5f, 1))
         assertEquals(270 to 480, cacheFrameSize(1080, 1920, 0.5f, 2))
         assertEquals(135 to 240, cacheFrameSize(1080, 1920, 0.5f, 4))
-        assertEquals(1080 to 1920, cacheFrameSize(1080, 1920, 3f, 1))
-        assertEquals(1920 to 1080, cacheFrameSize(3840, 2160, 1f, 1))
-        assertEquals(960 to 540, cacheFrameSize(3840, 2160, 0f, 2))
+        assertEquals(720 to 1280, cacheFrameSize(1080, 1920, 3f, 1))
+        assertEquals(1280 to 720, cacheFrameSize(3840, 2160, 1f, 1))
+        assertEquals(640 to 360, cacheFrameSize(3840, 2160, 0f, 2))
     }
 
     @Test fun theWholeProjectIsRenderedWhenItFits() {
@@ -107,7 +107,7 @@ class PreviewCacheTest {
     }
 
     @Test fun decodedPlaybackFramesAreChargedToTheBudget() {
-        assertEquals(38 * mib - 5 * 4L * 1000 * 500, storeBudget(38 * mib, 1000, 500))
+        assertEquals(38 * mib - 7 * 4L * 1000 * 500, storeBudget(38 * mib, 1000, 500))
         assertEquals(10 * mib / 4, storeBudget(10 * mib, 1920, 1080))
     }
 
