@@ -1016,6 +1016,13 @@
     <string name="menu_create_clipping_mask">ایجاد ماسک برشی</string>
     <string name="menu_convert_to_outline">تبدیل به خط دور</string>
     <string name="menu_extract_audio">استخراج صدا</string>
+
+    <string name="auto_cut">Auto Cut</string>
+    <string name="auto_cut_select_video">Select a video with audio first</string>
+    <string name="auto_cut_unsupported">Auto Cut does not support remapped clips yet</string>
+    <string name="auto_cut_no_silence">No silence found</string>
+    <string name="auto_cut_no_audio">Could not read the audio</string>
+    <string name="auto_cut_removed">Removed %1$s silent parts (%2$s)</string>
     <string name="menu_mark_beats">علامت‌گذاری بیت‌ها</string>
     <string name="menu_no_new_beats">بیت جدیدی پیدا نشد</string>
     <string name="menu_beats_not_found">بیت‌ها پیدا نشدند</string>

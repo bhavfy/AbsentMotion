@@ -1005,6 +1005,13 @@
     <string name="menu_create_clipping_mask">클리핑 마스크 만들기</string>
     <string name="menu_convert_to_outline">외곽선으로 변환</string>
     <string name="menu_extract_audio">오디오 추출</string>
+
+    <string name="auto_cut">Auto Cut</string>
+    <string name="auto_cut_select_video">Select a video with audio first</string>
+    <string name="auto_cut_unsupported">Auto Cut does not support remapped clips yet</string>
+    <string name="auto_cut_no_silence">No silence found</string>
+    <string name="auto_cut_no_audio">Could not read the audio</string>
+    <string name="auto_cut_removed">Removed %1$s silent parts (%2$s)</string>
     <string name="menu_mark_beats">비트 표시</string>
     <string name="menu_no_new_beats">새 비트를 찾을 수 없습니다</string>
     <string name="menu_beats_not_found">비트를 찾을 수 없습니다</string>
