@@ -14,30 +14,40 @@ import app.absentmotion.model.trimmedTo
 import app.absentmotion.platform.Context
 import kotlinx.coroutines.delay
 
-private const val SILENCE_THRESHOLD = 0.08f
-private const val MIN_SILENCE_MS = 500
+private const val SILENCE_FRACTION = 0.25f
+private const val SILENCE_MIN = 0.03f
+private const val SILENCE_MAX = 0.18f
+private const val MIN_SILENCE_MS = 300
 private const val EDGE_PAD_MS = 120
 private const val MIN_KEEP_MS = 120
 private const val STEP_MS = 50
-private const val BRIDGE_MS = 200
+private const val BRIDGE_MS = 400
 private const val PEAK_WAIT_MS = 60_000L
 
 internal fun findSilentRanges(peaks: AudioPeaks, layer: Layer): List<IntRange> {
     val start = layer.startTime
     val end = layer.endTime
     if (end <= start) return emptyList()
-    val raw = mutableListOf<IntRange>()
-    var runStart: Int? = null
+    val levels = mutableListOf<Float>()
     var t = start
     while (t < end) {
         val to = minOf(t + STEP_MS, end)
-        val loud = peaks.peak(layer.mediaTimeMs(t.toDouble()), layer.mediaTimeMs(to.toDouble()))
-        if (loud < SILENCE_THRESHOLD) {
-            if (runStart == null) runStart = t
-        } else {
-            runStart?.let { raw += it..t; runStart = null }
-        }
+        levels += peaks.peak(layer.mediaTimeMs(t.toDouble()), layer.mediaTimeMs(to.toDouble()))
         t = to
+    }
+    if (levels.isEmpty()) return emptyList()
+    val sorted = levels.sorted()
+    val loud = sorted[((sorted.size - 1) * 0.9).toInt()]
+    val threshold = (SILENCE_FRACTION * loud).coerceIn(SILENCE_MIN, SILENCE_MAX)
+    val raw = mutableListOf<IntRange>()
+    var runStart: Int? = null
+    for ((i, level) in levels.withIndex()) {
+        val at = start + i * STEP_MS
+        if (level < threshold) {
+            if (runStart == null) runStart = at
+        } else {
+            runStart?.let { raw += it..at; runStart = null }
+        }
     }
     runStart?.let { raw += it..end }
     if (raw.isEmpty()) return emptyList()
