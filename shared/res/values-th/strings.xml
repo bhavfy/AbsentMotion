@@ -1005,6 +1005,13 @@
     <string name="menu_create_clipping_mask">สร้างมาสก์แบบคลิป</string>
     <string name="menu_convert_to_outline">แปลงเป็นโครงร่าง</string>
     <string name="menu_extract_audio">แยกเสียง</string>
+
+    <string name="auto_cut">Auto Cut</string>
+    <string name="auto_cut_select_video">Select a video with audio first</string>
+    <string name="auto_cut_unsupported">Auto Cut does not support remapped clips yet</string>
+    <string name="auto_cut_no_silence">No silence found</string>
+    <string name="auto_cut_no_audio">Could not read the audio</string>
+    <string name="auto_cut_removed">Removed %1$s silent parts (%2$s)</string>
     <string name="menu_mark_beats">ทำเครื่องหมายบีต</string>
     <string name="menu_no_new_beats">ไม่พบบีตใหม่</string>
     <string name="menu_beats_not_found">ไม่พบบีต</string>

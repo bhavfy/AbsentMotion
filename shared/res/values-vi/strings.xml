@@ -1005,6 +1005,13 @@
     <string name="menu_create_clipping_mask">Tạo mặt nạ cắt</string>
     <string name="menu_convert_to_outline">Chuyển thành đường viền</string>
     <string name="menu_extract_audio">Tách âm thanh</string>
+
+    <string name="auto_cut">Auto Cut</string>
+    <string name="auto_cut_select_video">Select a video with audio first</string>
+    <string name="auto_cut_unsupported">Auto Cut does not support remapped clips yet</string>
+    <string name="auto_cut_no_silence">No silence found</string>
+    <string name="auto_cut_no_audio">Could not read the audio</string>
+    <string name="auto_cut_removed">Removed %1$s silent parts (%2$s)</string>
     <string name="menu_mark_beats">Đánh dấu nhịp</string>
     <string name="menu_no_new_beats">Không tìm thấy nhịp mới</string>
     <string name="menu_beats_not_found">Không thể tìm thấy nhịp</string>

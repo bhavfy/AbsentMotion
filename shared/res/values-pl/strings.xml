@@ -1038,6 +1038,13 @@
     <string name="menu_create_clipping_mask">Utwórz maskę przycinającą</string>
     <string name="menu_convert_to_outline">Zamień na kontur</string>
     <string name="menu_extract_audio">Wyodrębnij dźwięk</string>
+
+    <string name="auto_cut">Auto Cut</string>
+    <string name="auto_cut_select_video">Select a video with audio first</string>
+    <string name="auto_cut_unsupported">Auto Cut does not support remapped clips yet</string>
+    <string name="auto_cut_no_silence">No silence found</string>
+    <string name="auto_cut_no_audio">Could not read the audio</string>
+    <string name="auto_cut_removed">Removed %1$s silent parts (%2$s)</string>
     <string name="menu_mark_beats">Oznacz uderzenia</string>
     <string name="menu_no_new_beats">Nie znaleziono nowych uderzeń</string>
     <string name="menu_beats_not_found">Nie udało się znaleźć uderzeń</string>
