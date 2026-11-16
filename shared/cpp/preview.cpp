@@ -263,8 +263,10 @@ void RenderPreview(SkCanvas* canvas, int width, int height, const Scene& scene, 
             canvas->restore();
         }
         if (havePlane) {
-            SkPath dim = SkPath::Rect(SkRect::MakeIWH(width, height));
-            dim.addPath(SkPath::Polygon({planeQuad, 4}, true));
+            SkPathBuilder b;
+            b.addRect(SkRect::MakeIWH(width, height));
+            b.addPolygon({planeQuad, 4}, true);
+            SkPath dim = b.detach();
             dim.setFillType(SkPathFillType::kEvenOdd);
             SkPaint dimPaint;
             dimPaint.setColor(SkColorSetARGB(0xD9, 0, 0, 0));
