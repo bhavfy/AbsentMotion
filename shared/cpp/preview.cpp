@@ -125,7 +125,7 @@ static void DrawCameraFrames(SkCanvas* canvas, const Scene& scene, double timeMs
         if (l.kind != "camera" || !l.activeAt(timeMs)) continue;
         const bool selected = l.id == selectedId;
         SkPoint q[4];
-        if (!(seenThrough && &l == active) && CameraFrame(scene.layers, l, scene.width, scene.height, timeMs, q)) {
+        if (!(seenThrough && &l == active) && CameraFrame(scene.layers, l, scene.width, scene.height, timeMs, q, scene.depthOrder)) {
             toTarget.mapPoints(q);
             const SkPath box = SkPath::Polygon({q, 4}, true);
             if (selected) {
@@ -193,32 +193,16 @@ void RenderPreview(SkCanvas* canvas, int width, int height, const Scene& scene, 
 
         canvas->clear(background);
         const float px = view.refPx > 0 ? view.refPx : width / 1080.0f;
-        const Layer* activeCam = ActiveCamera(scene.layers, timeMs);
-        const bool world = activeCam != nullptr;
-        const Layer* cam = world && camera ? activeCam : nullptr;
-        SkPoint planeQuad[4];
-        bool havePlane = false;
-        if (cam != nullptr) {
-            havePlane = CameraPlaneQuad(scene.layers, *cam, scene.width, scene.height, timeMs, planeQuad);
-            if (havePlane) {
-                const SkMatrix toScreen = SkMatrix::Translate(dx, dy).preScale(scale, scale);
-                toScreen.mapPoints(planeQuad);
-            }
-        }
+        const bool world = !camera && ActiveCamera(scene.layers, timeMs) != nullptr;
         auto drawScene = [&](SkCanvas* target, const LayerEffects* fx) {
             if (world) DrawWorld(target, *shown, timeMs, pictures, fx);
-            else DrawScene(target, *shown, timeMs, pictures, fx, false);
+            else DrawScene(target, *shown, timeMs, pictures, fx);
         };
         const int divisor = std::max(view.pixelDivisor, 1);
         const int bufferW = (int)lroundf(width / scale / divisor), bufferH = (int)lroundf(height / scale / divisor);
         const bool pixelArt = view.pixels && bufferW > 0 && bufferH > 0 && (bufferW < width || bufferH < height);
         if ((scene.bgColor >> 24) != 0xff) {
-            SkRect area = SkRect::MakeXYWH(dx, dy, scene.width * scale, scene.height * scale);
-            if (havePlane) {
-                SkRect quadArea;
-                quadArea.setBounds({planeQuad, 4});
-                if (quadArea.isFinite() && !quadArea.isEmpty()) area = quadArea;
-            }
+            const SkRect area = world ? SkRect::MakeIWH(width, height) : SkRect::MakeXYWH(dx, dy, scene.width * scale, scene.height * scale);
             SkRect covered = area;
             if (pixelArt && !world) {
                 const float kx = (float)bufferW / width, ky = (float)bufferH / height;
@@ -261,16 +245,6 @@ void RenderPreview(SkCanvas* canvas, int width, int height, const Scene& scene, 
             canvas->scale(scale, scale);
             drawScene(canvas, &fx);
             canvas->restore();
-        }
-        if (havePlane) {
-            SkPathBuilder b;
-            b.addRect(SkRect::MakeIWH(width, height));
-            b.addPolygon({planeQuad, 4}, true);
-            SkPath dim = b.detach();
-            dim.setFillType(SkPathFillType::kEvenOdd);
-            SkPaint dimPaint;
-            dimPaint.setColor(SkColorSetARGB(0xD9, 0, 0, 0));
-            canvas->drawPath(dim, dimPaint);
         }
         if (view.gridSpacing > 0) DrawGrid(canvas, canvas->getBaseLayerSize(), scene, scale, dx, dy, view.gridSpacing);
         DrawCameraFrames(canvas, scene, timeMs, camera, selectedId, SkMatrix::Translate(dx, dy).preScale(scale, scale), px);

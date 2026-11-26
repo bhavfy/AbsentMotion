@@ -306,8 +306,7 @@ double RetimedTime(const Retiming& r, int startTime, int endTime, double at);
 void SetCameraView(bool on);
 SkMatrix PlaneMatrix(const std::vector<Layer>& layers, const Layer& layer, int width, int height, double timeMs, bool depthOrder = false);
 bool CameraViewOn();
-bool CameraFrame(const std::vector<Layer>& layers, const Layer& camera, int width, int height, double timeMs, SkPoint corners[4]);
-bool CameraPlaneQuad(const std::vector<Layer>& layers, const Layer& camera, int width, int height, double timeMs, SkPoint corners[4]);
+bool CameraFrame(const std::vector<Layer>& layers, const Layer& camera, int width, int height, double timeMs, SkPoint corners[4], bool depthOrder = false);
 bool SeeLayers(const std::vector<Layer>& layers, int width, int height, bool top, int fps, double timeMs, bool depthOrder, std::vector<Layer>* seen,
                bool pieces = false);
 bool SeenPlacement(const Layer& layer, double timeMs, Placement* placement);
@@ -360,7 +359,7 @@ struct LayerEffects {
     std::function<bool(const Layer&, double, SkPoint*)> turn;
 };
 void DrawScene(SkCanvas* canvas, const Scene& scene, double timeMs, const MediaPictures& pictures,
-               const LayerEffects* effects = nullptr, bool clip = true);
+               const LayerEffects* effects = nullptr);
 void SetLayerEffects(const LayerEffects* effects, const Scene* scene, bool world = false);
 int ProjectFps();
 const std::vector<Layer>* EffectSiblings();
